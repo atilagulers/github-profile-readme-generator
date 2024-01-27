@@ -2,8 +2,8 @@ import '@styles/globals.css';
 import Nav from '@components/Nav';
 
 export const metadata = {
-  title: 'Home | Github Profile Readme Generator',
-  description: 'Generate your Github profile readme easily with this tool.',
+  title: 'Home | GitHub Profile Readme Generator',
+  description: 'Generate your GitHub profile readme easily with this tool.',
 };
 
 type Props = {

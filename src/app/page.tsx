@@ -1,7 +1,7 @@
 const Home = () => {
   return (
     <section className="w-full flex-center flex-col">
-      <h1 className="header-primary-gradient font-bold p-1 text-center md:text-6xl text-2xl">
+      <h1 className="header-primary-gradient tracking-wide font-bold p-1 text-center md:text-6xl text-2xl">
         Easiest way to generate
       </h1>
       <h1 className="text-center font-light md:text-4xl text-lg my-5">
