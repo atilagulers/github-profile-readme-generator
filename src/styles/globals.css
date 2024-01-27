@@ -18,7 +18,7 @@ body {
 
 /* Gradients */
 .header-primary-gradient {
-  @apply bg-gradient-radial from-primary  via-yellow-600 to-primary bg-clip-text text-transparent;
+  @apply bg-gradient-radial from-primary  via-orange-400 to-primary bg-clip-text text-transparent;
 }
 
 .flex-center {
