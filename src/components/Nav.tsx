@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {useState, useEffect} from 'react';
 import {signIn, signOut, useSession, getProviders} from 'next-auth/react';
-import {FaUser, FaBars} from 'react-icons/fa';
 
 const Nav = () => {
   const {data: session} = useSession();
@@ -37,12 +36,18 @@ const Nav = () => {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className="hidden sm:flex">
+      <div className="hidden h-full sm:flex">
         {session?.user ? (
-          <div className="flex gap-3 md:gap-5">
+          <div className="flex-center gap-3 md:gap-5">
             <Link href="/create-template">Create Template</Link>
             <Link href="/profile">Sign out</Link>
-            <FaUser />
+            <Image
+              className="rounded-full"
+              src={session?.user?.image || ''}
+              alt="Profile Avatar"
+              width={40}
+              height={40}
+            />
           </div>
         ) : (
           <>
@@ -64,7 +69,14 @@ const Nav = () => {
       <div className="sm:hidden flex relative">
         {session?.user ? (
           <div className="flex">
-            <FaBars onClick={() => setToggleMenu((prev) => !prev)} />
+            <Image
+              onClick={() => setToggleMenu((prev) => !prev)}
+              className="rounded-full"
+              src={session?.user?.image || ''}
+              alt="Profile Avatar"
+              width={40}
+              height={40}
+            />
 
             {toggleMenu && (
               <div className="absolute right-0 mt-3 p-5 rounded-lg text-light border border-dark-light bg-dark min-w-[150px] max-w-[300px] flex flex-col gap-3 items-start">
