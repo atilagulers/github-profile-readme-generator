@@ -1,6 +1,7 @@
 import '@styles/globals.css';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
+import {Session} from 'next-auth';
 
 export const metadata = {
   title: 'Home | GitHub Profile Readme Generator',
@@ -9,9 +10,10 @@ export const metadata = {
 
 type Props = {
   children: React.ReactNode;
+  session: Session;
 };
 
-const RootLayout = ({children}: Props) => {
+const RootLayout = ({children, session}: Props) => {
   return (
     <html lang="en">
       <head>
@@ -19,7 +21,7 @@ const RootLayout = ({children}: Props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
-        <Provider>
+        <Provider session={session}>
           <main className="app">
             <Nav />
             {children}

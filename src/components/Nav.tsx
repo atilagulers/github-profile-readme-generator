@@ -40,7 +40,15 @@ const Nav = () => {
         {session?.user ? (
           <div className="flex-center gap-3 md:gap-5">
             <Link href="/create-template">Create Template</Link>
-            <Link href="/profile">Sign out</Link>
+            <button
+              type="button"
+              onClick={() => {
+                setToggleMenu(false);
+                signOut();
+              }}
+            >
+              Sign Out
+            </button>
             <Image
               className="rounded-full"
               src={session?.user?.image || ''}
@@ -100,7 +108,9 @@ const Nav = () => {
                     setToggleMenu(false);
                     signOut();
                   }}
-                ></button>
+                >
+                  Sign Out
+                </button>
               </div>
             )}
           </div>

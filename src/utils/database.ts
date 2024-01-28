@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {ConnectOptions} from 'mongoose';
 
 let isConnected = false;
 
@@ -9,13 +9,11 @@ export const connectToDB = async () => {
     console.log('MongoDB is already connected');
     return;
   }
-
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: process.env.MONGODB_DB,
+    await mongoose.connect(process.env.MONGO_URI || '', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    });
+    } as ConnectOptions);
 
     isConnected = true;
     console.log('MongoDB is connected');

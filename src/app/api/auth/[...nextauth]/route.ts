@@ -1,45 +1,74 @@
 import NextAuth from 'next-auth/next';
-import GithubProvider from 'next-auth/providers/github';
+import GithubProvider, {GithubProfile} from 'next-auth/providers/github';
 
 import User from '@models/User';
 import {connectToDB} from '@utils/database';
+import {OAuthConfig} from 'next-auth/providers/oauth';
 
-export const authOptions = {
+type AuthOptions = {
+  providers: OAuthConfig<GithubProfile>[];
+  callbacks: {
+    session: any;
+    signIn: any;
+  };
+};
+
+type Session = {
+  user: {
+    id: string;
+    email: string;
+  };
+};
+
+type Profile = {
+  email: string;
+  login: string;
+  avatar_url: string;
+};
+
+export const authOptions: AuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID || '',
       clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
+      authorization: {
+        params: {
+          scope: 'user:email',
+        },
+      },
     }),
   ],
 
-  async session({session}: any) {
-    const sessionUser = await User.findOne({email: session.user.email});
+  callbacks: {
+    async session({session}: {session: Session}) {
+      const sessionUser = await User.findOne({email: session.user.email});
 
-    session.user.id = sessionUser?._id.toString();
+      session.user.id = sessionUser?._id.toString();
 
-    return session;
-  },
+      return session;
+    },
 
-  async signIn({profile}: any) {
-    try {
-      await connectToDB();
+    async signIn({profile}: {profile: Profile}) {
+      try {
+        await connectToDB();
 
-      // check if user exists
-      const userExists = await User.findOne({email: profile.email});
+        // check if user exists
+        const userExists = await User.findOne({email: profile.email});
 
-      // if not, create user
-      if (!userExists) {
-        await User.create({
-          email: profile.email,
-          username: profile.login,
-          image: profile.avatar_url,
-        });
+        // if not, create user
+        if (!userExists) {
+          await User.create({
+            email: profile.email,
+            username: profile.login,
+            image: profile.avatar_url,
+          });
 
-        return true;
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    },
   },
 };
 
