@@ -7,7 +7,7 @@ import {signIn, signOut, useSession, getProviders} from 'next-auth/react';
 import {FaUser, FaBars} from 'react-icons/fa';
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const {data: session} = useSession();
 
   const [providers, setProviders] = useState<any>(null);
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -15,7 +15,7 @@ const Nav = () => {
   useEffect(() => {
     const getProvidersData = async () => {
       const providers = await getProviders();
-      console.log(providers);
+
       setProviders(providers);
     };
     getProvidersData();
@@ -38,7 +38,7 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className="hidden sm:flex">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-template">Create Template</Link>
             <Link href="/profile">Sign out</Link>
@@ -62,22 +62,22 @@ const Nav = () => {
 
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <FaBars onClick={() => setToggleMenu((prev) => !prev)} />
 
             {toggleMenu && (
-              <div className="absolute right-0 mt-3 p-5 rounded-lg border border-dark-light bg-dark min-w-[150px] max-w-[300px] flex flex-col gap-3 items-start">
+              <div className="absolute right-0 mt-3 p-5 rounded-lg text-light border border-dark-light bg-dark min-w-[150px] max-w-[300px] flex flex-col gap-3 items-start">
                 <Link
                   href={'/profile'}
-                  className="text-sm font-inter text-gray-700 hover:text-gray-500 font-medium"
+                  className="text-sm font-inter hover:text-gray-500 font-medium"
                   onClick={() => setToggleMenu(false)}
                 >
                   My Profile
                 </Link>
                 <Link
                   href={'/profile'}
-                  className="text-sm font-inter text-gray-700 hover:text-gray-500 font-medium"
+                  className="text-sm font-inter hover:text-gray-500 font-medium"
                   onClick={() => setToggleMenu(false)}
                 >
                   My Profile

@@ -1,5 +1,6 @@
 import '@styles/globals.css';
 import Nav from '@components/Nav';
+import Provider from '@components/Provider';
 
 export const metadata = {
   title: 'Home | GitHub Profile Readme Generator',
@@ -18,10 +19,12 @@ const RootLayout = ({children}: Props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
-        <main className="app">
-          <Nav />
-          {children}
-        </main>
+        <Provider>
+          <main className="app">
+            <Nav />
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );
