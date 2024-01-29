@@ -33,7 +33,9 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
       authorization: {
         params: {
-          scope: 'user:email',
+          display: 'popup',
+          url: 'https://github.com/login/oauth/authorize',
+          scope: 'read:user user:email',
         },
       },
     }),
@@ -51,6 +53,7 @@ export const authOptions: AuthOptions = {
     async signIn({profile}: {profile: Profile}) {
       try {
         await connectToDB();
+        if (!profile.email) return 'Email not found';
 
         // check if user exists
         const userExists = await User.findOne({email: profile.email});
