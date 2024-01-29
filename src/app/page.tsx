@@ -11,6 +11,7 @@ const Home = () => {
         <p>This is a open-source GitHub Profile Readme Generator.</p>
         <p> You can either create a template or use a pre-made template.</p>
       </div>
+      <button className="btn btn-primary">here</button>
     </section>
   );
 };

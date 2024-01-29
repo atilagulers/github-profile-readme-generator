@@ -20,14 +20,14 @@ const config: Config = {
       },
       colors: {
         primary: {
-          light: '#FFC107',
+          light: '#FFD700',
           DEFAULT: '#FFC107',
-          dark: '#FFD700',
+          dark: '#FFC107',
         },
         secondary: {
-          light: '#FFC107',
+          light: '#FFD700',
           DEFAULT: '#FFC107',
-          dark: '#FFD700',
+          dark: '#FBC107',
         },
         light: {
           DEFAULT: '#F8F9FA',
